@@ -14,6 +14,7 @@ headline5 = ImageFont.truetype('arialbd.ttf', size = 45)
 # делаем файлек
 def create_file(name_folder, type_reward, name_sur, place, reward, event, datetime):
     img = Image.open('Шаблон грамоты.png')
+    
     idraw = ImageDraw.Draw(img)
     # о текст мой текст
     idraw.text((300, 250), type_reward, font=headline1, fill='blue')
