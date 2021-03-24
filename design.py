@@ -42,9 +42,12 @@ def UploadAction1(event=None):
     # принимаем путь к файлу
     filename = filedialog.askopenfilename()
     if str(filename).split('.')[1] in ['xlsx', 'xls']:
-        get_info(filename)
-        notif = Label(frame, text="Награды сделаны!", bg="red")
-        notif.pack()
+        if get_info(filename) == 'ok':
+            notif = Label(frame, text="Награды сделаны!", bg="red")
+            notif.pack()
+        else:
+            notif = Label(frame, text="Возникли проблемы с таблицей. Проверьте правильность введеных данных", bg="red")
+            notif.pack()
     else:
         notif = Label(frame, text="Данный тип файла не соответствует формату xlsx или xls :(", bg="red")
         notif.pack()
@@ -73,10 +76,10 @@ title = Label(frame, text="Автоматические документы", bg=
 title.pack()
 
 # кнопки
-btn = Button(frame, text="Загрузить 1-ый файл", bg="white", command=UploadAction1)
+btn = Button(frame, text="Загрузить excel файл", bg="white", command=UploadAction1)
 btn.place(x=320, y=270)
 
-btn2 = Button(frame, text="Загрузить 2-ой файл", bg="white", command=UploadAction2)
+btn2 = Button(frame, text="Загрузить word файл", bg="white", command=UploadAction2)
 btn2.place(x=470, y=270)
 
 btn3 = Button(frame, text="Помощь", bg="white", command=HelpAction)
