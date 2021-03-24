@@ -3,7 +3,7 @@ from create_folder import create_folder
 from create_file import create_file
 
 
-def get_info(filename):
+def get_info(filename, dox_place):
     # получаем всю всю информацию из excel файла
     data = pandas.read_excel(filename, sheet_name='Лист1')
 
@@ -21,7 +21,7 @@ def get_info(filename):
 
         # передаем данные в функцию, где создаются дипломы
         for i in range(len(name_sur)):
-            create_file(name_folder, type_reward[i], name_sur[i], place[i], reward[i], event[i], datetime[i])
+            create_file(name_folder, dox_place, type_reward[i], name_sur[i], place[i], reward[i], event[i], datetime[i])
         return 'ok'
     except KeyError:
         return 'key_error'

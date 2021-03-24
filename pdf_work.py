@@ -39,5 +39,3 @@ def write_to_file(filename, story):
 
     canvas.showPage()
     canvas.save()
-
-

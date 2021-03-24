@@ -23,26 +23,6 @@ def UploadAction(event=None):
 # загрузка файлов в приложение
 
 
-'''def HelpAction():
-    root = Tk()
-    root['bg'] = '#fafafa'
-    root.title("Автоматические документы")
-    root.geometry('600x300')
-    root.resizable(width=False, height=False)
-    canvas = Canvas(root, height=600, width=300)
-    canvas.pack()
-
-    frame = Frame(root, bg='light blue')
-    frame.place(relwidth=1, relheight=1)
-
-    title = Label(frame, text="Помощь", bg="light blue", font=40)
-    title.pack()
-    lbl1 = Label(frame, text="1). Загрузите с помощью кнопки 'Загрузить 1-ый файл' книгу Excel c расширением .xlsx")
-    lbl1.pack()
-    lbl2 = Label(frame, text="2). Загрузите с помощью кнопки 'Загрузить 2-ой файл' документ Word с расширением .docx")
-    lbl2.pack() '''
-
-
 def UploadAction1(event=None):
     # принимаем путь к файлу
     filename = filedialog.askopenfilename()
@@ -88,7 +68,6 @@ lbl3.pack()
 # кнопки
 btn = Button(frame, text="Загрузить файлы", bg="white", height=5, width=13, command=UploadAction)
 btn.place(x=300, y=200)
-
 
 
 root.mainloop()
