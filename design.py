@@ -20,8 +20,6 @@ def UploadAction(event=None):
         notif.pack()
 
 
-# загрузка файлов в приложение
-
 root = Tk()
 root['bg'] = '#fafafa'
 root.title("Автоматические документы")
