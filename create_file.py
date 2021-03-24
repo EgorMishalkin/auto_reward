@@ -5,14 +5,6 @@ from docx2pdf import convert
 from pdf_work import write_to_file, sum_file
 
 
-# красивые шрифта
-headline1 = ImageFont.truetype('arialbd.ttf', size=85)
-headline2 = ImageFont.truetype('arial.ttf', size=40)
-headline3 = ImageFont.truetype('ariblk.ttf', size=50)
-headline4 = ImageFont.truetype('arial.ttf', size=27)
-headline5 = ImageFont.truetype('arialbd.ttf', size=45)
-
-
 # делаем файлек
 def create_file(name_folder, dox_place, type_reward, name_sur, place, reward, event, datetime):
     # convert("шаблон грамоты.docx")
