@@ -19,10 +19,9 @@ def create_file(name_folder, type_reward, name_sur, place, reward, event, dateti
     convert("шаблон грамоты.docx", "output.pdf")
     os.rename('шаблон грамоты.pdf', f'{name_sur}.pdf')
     # convert("my_docx_folder/")
-    write_to_file(f'{name_sur}.pdf', [type_reward, name_sur, place, reward, event, datetime])
 
     dest_dir = f'{os.getcwd()}\{name_folder}'
     # move method to move the file
     shutil.move(f'{name_sur}.pdf', dest_dir)
 
-    # sum_file(f'{name_sur}.pdf', 'шаблон грамоты.pdf', f'{dest_dir}\{name_sur}.pdf')
+    sum_file(f'{name_sur}.pdf', 'шаблон грамоты.pdf', 'merged.pdf')
