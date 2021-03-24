@@ -6,10 +6,15 @@ from get_info import get_info
 def UploadAction(event=None):
     # принимаем путь к файлу
     filename = filedialog.askopenfilename()
+    filename2 = filedialog.askopenfilename()
     if str(filename).split('.')[1] in ['xlsx', 'xls']:
-        get_info(filename)
-        notif = Label(frame, text="Награды сделаны!", bg="red")
-        notif.pack()
+        if str(filename2).split('.')[1] in ['docx']:
+            get_info(filename, filename2)
+            notif = Label(frame, text="Награды сделаны!", bg="red")
+            notif.pack()
+        else:
+            notif = Label(frame, text="Данный тип файла не соответствует формату docx :(", bg="red")
+            notif.pack()
     else:
         notif = Label(frame, text="Данный тип файла не соответствует формату xlsx или xls :(", bg="red")
         notif.pack()
@@ -18,7 +23,7 @@ def UploadAction(event=None):
 # загрузка файлов в приложение
 
 
-def HelpAction():
+'''def HelpAction():
     root = Tk()
     root['bg'] = '#fafafa'
     root.title("Автоматические документы")
@@ -35,7 +40,7 @@ def HelpAction():
     lbl1 = Label(frame, text="1). Загрузите с помощью кнопки 'Загрузить 1-ый файл' книгу Excel c расширением .xlsx")
     lbl1.pack()
     lbl2 = Label(frame, text="2). Загрузите с помощью кнопки 'Загрузить 2-ой файл' документ Word с расширением .docx")
-    lbl2.pack()
+    lbl2.pack() '''
 
 
 def UploadAction1(event=None):
@@ -64,7 +69,7 @@ def UploadAction2(event=None):
 root = Tk()
 root['bg'] = '#fafafa'
 root.title("Автоматические документы")
-root.geometry('600x300')
+root.geometry('700x400')
 root.resizable(width=False, height=False)
 canvas = Canvas(root, height=600, width=300)
 canvas.pack()
@@ -74,15 +79,16 @@ frame.place(relwidth=1, relheight=1)
 # создание текста в окне
 title = Label(frame, text="Автоматические документы", bg="light blue", font=40)
 title.pack()
-
+lbl1 = Label(frame, text="1). Нажмите на кнопку 'Загрузить' и выберите файл в формате .xlsx")
+lbl1.pack()
+lbl2 = Label(frame, text="2). Ожидайте повторного открытия диалогового окна и выберите файл с расширением .docx")
+lbl2.pack()
+lbl3 = Label(frame, text="2). После появления надписи 'Награды готовы!', откройте созданную автоматически папку и пользуйтесь документами!")
+lbl3.pack()
 # кнопки
-btn = Button(frame, text="Загрузить excel файл", bg="white", command=UploadAction1)
-btn.place(x=320, y=270)
+btn = Button(frame, text="Загрузить файлы", bg="white", height=5, width=13, command=UploadAction)
+btn.place(x=300, y=200)
 
-btn2 = Button(frame, text="Загрузить word файл", bg="white", command=UploadAction2)
-btn2.place(x=470, y=270)
 
-btn3 = Button(frame, text="Помощь", bg="white", command=HelpAction)
-btn3.place(x=4, y=270)
 
 root.mainloop()
