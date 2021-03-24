@@ -2,7 +2,7 @@ from PIL import Image, ImageFilter, ImageDraw, ImageFont
 import os
 import shutil
 from docx2pdf import convert
-from pdf_work import write_to_file
+from pdf_work import write_to_file, sum_file
 
 
 # красивые шрифта
@@ -24,3 +24,5 @@ def create_file(name_folder, type_reward, name_sur, place, reward, event, dateti
     dest_dir = f'{os.getcwd()}\{name_folder}'
     # move method to move the file
     shutil.move(f'{name_sur}.pdf', dest_dir)
+
+    # sum_file(f'{name_sur}.pdf', 'шаблон грамоты.pdf', f'{dest_dir}\{name_sur}.pdf')
