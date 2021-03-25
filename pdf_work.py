@@ -1,13 +1,22 @@
 import PyPDF2 as pypdf
-import os
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.pagesizes import A4
+from reportlab.pdfgen import canvas
+from PyPDF2 import PdfFileWriter, PdfFileReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from PyPDF2 import PdfFileMerger, PdfFileReader, PdfFileWriter
-from fpdf import FPDF
+import os
+
+
 def write_to_file(filename, story):
-    canvas = Canvas(filename, pagesize=A4)
+    # файл, который получится при соединении
+    output = filename.split(".pdf")[0] + ".pdf"
+    print(output)
+    # шаблон грамоты
+    template = 'shablon_gramoty.pdf'
+    # файл, который делается по информации из таблицы
+    title = filename
+    canvas = Canvas(title)
     pdfmetrics.registerFont(TTFont('FreeSans', 'FreeSans.ttf'))
     canvas.setFont('FreeSans', 50)
     canvas.setFillColor('blue')
@@ -21,24 +30,17 @@ def write_to_file(filename, story):
     canvas.drawString(200, 50, story[5])
     canvas.showPage()
     canvas.save()
-    all(filename, story)
+    # Тут его читаешь
+    f_pdf = PdfFileReader(open(template, 'rb'))
+    s_pdf = PdfFileReader(open(title, 'rb'))
+    # Собираешь из двух файлов один
+    page = f_pdf.getPage(0)
+    page.mergePage(s_pdf.getPage(0))
 
+    # записываешь конечный файл
+    output_file = PdfFileWriter()
+    output_file.addPage(page)
 
-def  all(filename, story):
-    with open("shablon_gramoty.pdf", "rb") as inFile, open(filename, "rb") as overlay:
-        original = pypdf.PdfFileReader(inFile)
-        background = original.getPage(0)
-        foreground = pypdf.PdfFileReader(overlay).getPage(0)
+    with open(output, 'wb') as f:
+        output_file.write(f)
 
-        # merge the first two pages
-        background.mergePage(foreground)
-
-        # add all pages to a writer
-        writer = pypdf.PdfFileWriter()
-        for i in range(original.getNumPages()):
-            page = original.getPage(i)
-            writer.addPage(page)
-
-        # write everything in the writer to a file
-        with open(filename, "wb") as outFile:
-            writer.write(outFile)

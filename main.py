@@ -1,57 +1,23 @@
-from reportlab.pdfgen import canvas
-from PyPDF2 import PdfFileWriter, PdfFileReader
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
+import pandas
+from create_folder import create_folder
+from create_file import create_file
 
 
-# укажи название всех файлов
-# файл, который получится при соединении
-output = 'out.pdf'
-# шаблон грамоты
-template = 'shablon_gramoty.pdf'
-# файл, который делается по информации из таблицы
-title = 'title.pdf'
+def get_info(filename):
+    # получаем всю всю информацию из excel файла
+    data = pandas.read_excel(filename, sheet_name='Лист1')
 
-# конвертни шаблон из дока в пдф
-# convert_to_pdf(filename=template)
+    # делаем ччф формат для данных
+    type_reward = data['Вид грамоты'].tolist()
+    name_sur = data['ФИ участника'].tolist()
+    place = data['Наименование организатора мероприятия'].tolist()
+    reward = data['Место/награда/номинация'].tolist()
+    event = data['Название мероприятия'].tolist()
+    datetime = data['Дата проведения'].tolist()
 
-# Тут его читаешь
-f_pdf = PdfFileReader(open(template, 'rb'))
+    # создаем папку, в которую будем помещать фотографии
+    name_folder = create_folder(event)
 
-
-# Создаешь надпись "награждается"
-# сюда добавить русский текст
-canvas = canvas.Canvas(title)
-story = ['егор', 'dd0', '110', 'антон', 'коля', 'dd']
-pdfmetrics.registerFont(TTFont('FreeSans', 'FreeSans.ttf'))
-canvas.setFont('FreeSans', 50)
-canvas.setFillColor('blue')
-canvas.setFont('FreeSans', 30)
-canvas.drawString(200, 650, story[0])
-canvas.setFillColor('black')
-canvas.drawString(200, 500, story[1])
-canvas.drawString(200, 400, story[2])
-canvas.drawString(200, 300, story[3])
-canvas.drawString(200, 200, story[4])
-canvas.drawString(200, 50, story[5])
-canvas.showPage()
-canvas.save()
-
-
-# Читаешь пдф с надписью
-s_pdf = PdfFileReader(open(title, 'rb'))
-# Собираешь из двух файлов один
-page = f_pdf.getPage(0)
-page.mergePage(s_pdf.getPage(0))
-
-# записываешь конечный файл
-output_file = PdfFileWriter()
-output_file.addPage(page)
-
-with open(output, 'wb') as f:
-    output_file.write(f)
-
-
-# удаляешь все ненужные файлы:
-# 1. файл пдф шаблон
-# 2. файл с надписью
+    # передаем данные в функцию, где создаются дипломы
+    for i in range(len(name_sur)):
+        create_file(name_folder, type_reward[i], name_sur[i], place[i], reward[i], event[i], datetime[i])

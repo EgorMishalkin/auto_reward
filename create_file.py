@@ -20,10 +20,10 @@ def create_file(name_folder, dox_place, type_reward, name_sur, place, reward, ev
     # os.rename('шаблон грамоты.pdf', f'{name_sur}.pdf')
     convert(dox_place)
     convert(dox_place, "output.pdf")
-    os.rename(f'{dox_place.split(".")[0]}.pdf', f'{name_sur}.pdf')
+    os.rename(f'{dox_place.split(".")[0]}.pdf', f'{name_sur}.pdf.pdf')
 
     # convert("my_docx_folder/")
-    write_to_file(f'{name_sur}.pdf', [type_reward, name_sur, place, reward, event, datetime])
+    write_to_file(f'{name_sur}.pdf.pdf', [type_reward, name_sur, place, reward, event, datetime])
 
     dest_dir = f'{os.getcwd()}\{name_folder}'
     # move method to move the file
