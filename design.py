@@ -6,8 +6,8 @@ from get_info import get_info
 def UploadAction(event=None):
     # принимаем путь к файлу
     filename = filedialog.askopenfilename()
+    filename2 = filedialog.askopenfilename()
     if str(filename).split('.')[1] in ['xlsx', 'xls']:
-        filename2 = filedialog.askopenfilename()
         if str(filename2).split('.')[1] in ['docx']:
             get_info(filename, filename2)
             notif = Label(frame, text="Награды сделаны!", bg="red")
@@ -18,6 +18,32 @@ def UploadAction(event=None):
     else:
         notif = Label(frame, text="Данный тип файла не соответствует формату xlsx или xls :(", bg="red")
         notif.pack()
+
+
+# загрузка файлов в приложение
+
+
+def UploadAction1(event=None):
+    # принимаем путь к файлу
+    filename = filedialog.askopenfilename()
+    if str(filename).split('.')[1] in ['xlsx', 'xls']:
+        if get_info(filename) == 'ok':
+            notif = Label(frame, text="Награды сделаны!", bg="red")
+            notif.pack()
+        else:
+            notif = Label(frame, text="Возникли проблемы с таблицей. Проверьте правильность введеных данных", bg="red")
+            notif.pack()
+    else:
+        notif = Label(frame, text="Данный тип файла не соответствует формату xlsx или xls :(", bg="red")
+        notif.pack()
+
+
+def UploadAction2(event=None):
+    filename2 = filedialog.askopenfilename()
+    if str(filename2).split('.')[1] in ['docx']:
+        print(0)
+    else:
+        print(1)
 
 
 root = Tk()
