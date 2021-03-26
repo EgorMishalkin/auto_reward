@@ -1,7 +1,4 @@
-import PyPDF2 as pypdf
 from reportlab.pdfgen.canvas import Canvas
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfgen import canvas
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -31,8 +28,11 @@ def write_to_file(filename, story):
     canvas.showPage()
     canvas.save()
     # Тут его читаешь
-    f_pdf = PdfFileReader(open(template, 'rb'))
-    s_pdf = PdfFileReader(open(title, 'rb'))
+
+    f1 = open(template, 'rb')
+    f_pdf = PdfFileReader(f1)
+    f2 = open(title, 'rb')
+    s_pdf = PdfFileReader(f2)
     # Собираешь из двух файлов один
     page = f_pdf.getPage(0)
     page.mergePage(s_pdf.getPage(0))
@@ -44,3 +44,6 @@ def write_to_file(filename, story):
     with open(output, 'wb') as f:
         output_file.write(f)
 
+    f1.close()
+    f2.close()
+    os.remove(title)
